@@ -10,7 +10,7 @@ import UIKit
 import ARKit
 import RealityKit
 
-class ViewController: UIViewController {
+class PlaceViewController: UIViewController {
     
     @IBOutlet var arView: ARView!
     
