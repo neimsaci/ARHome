@@ -32,6 +32,7 @@ class PlaceViewController: UIViewController {
             .flexibleWidth,
             .flexibleHeight
         ]
+        coachingOverlay.activatesAutomatically = true
         coachingOverlay.goal = .horizontalPlane
         coachingOverlay.session = arView.session
         // Set the delegate for any callbacks
@@ -74,10 +75,11 @@ class PlaceViewController: UIViewController {
         // where the user tapped on the screen.
         let transform = hitTestResult.worldTransform
         let positionColumn = transform.columns.3
-        let product = try! Entity.loadModel(named: "chair_swan")
+        //let product = try! Entity.loadModel(named: "chair_swan")
+        let product = itemSettings.currentItem()
         product.position = SIMD3<Float>(positionColumn.x, positionColumn.y, positionColumn.z)
         
-        let placementAnchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.1, 0.1])
+        let placementAnchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.2, 0.2])
         arView.scene.addAnchor(placementAnchor)
         placementAnchor.addChild(product)
     }

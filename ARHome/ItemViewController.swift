@@ -15,6 +15,10 @@ class ItemViewController: UIViewController {
     
     var itemSettings: ItemSettings!
     
+    required init?(coder aDecoder: NSCoder) {
+      super.init(coder: aDecoder)
+    }
+    
     override func viewDidLoad() {
       super.viewDidLoad()
 
@@ -37,6 +41,7 @@ extension ItemViewController : UICollectionViewDelegate {
 
 extension ItemViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("item count \(itemSettings.itemNames.count)")
         return itemSettings.itemNames.count
     }
     
@@ -44,10 +49,10 @@ extension ItemViewController : UICollectionViewDataSource {
         let cell = itemCollectionView.dequeueReusableCell(withReuseIdentifier: "itemCollectionViewCell", for: indexPath)
         print("indexPath.row: \(indexPath.row)")
         
-        let nameLabel = cell.viewWithTag(1001) as! UILabel
+        let nameLabel = cell.viewWithTag(1000) as! UILabel
         let str = itemSettings.itemNames[indexPath.row]
         nameLabel.text = str
-        print("name label: \(str)" )
+        print("name label: \(nameLabel)" )
         
         return cell
     }
