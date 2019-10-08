@@ -9,6 +9,5 @@
 import UIKit
 
 class CustomTabBarController: UITabBarController {
-
-
+    var itemSettings = ItemSettings()
 }

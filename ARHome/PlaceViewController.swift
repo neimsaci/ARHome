@@ -14,12 +14,17 @@ class PlaceViewController: UIViewController {
     
     @IBOutlet var arView: ARView!
     
+    var itemSettings: ItemSettings!
+    
     @IBAction func clearButtonPressed(_ sender: Any) {
         clearAllFurniture()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let customTabBarController = self.tabBarController as! CustomTabBarController
+        itemSettings = customTabBarController.itemSettings
         
         let coachingOverlay = ARCoachingOverlayView()
         // Make sure it rescales if the device orientation changes
