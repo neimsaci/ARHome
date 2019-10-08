@@ -21,6 +21,24 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let coachingOverlay = ARCoachingOverlayView()
+        // Make sure it rescales if the device orientation changes
+        coachingOverlay.autoresizingMask = [
+            .flexibleWidth,
+            .flexibleHeight
+        ]
+        coachingOverlay.goal = .horizontalPlane
+        coachingOverlay.session = arView.session
+        // Set the delegate for any callbacks
+        coachingOverlay.delegate = self.arView
+        arView.addSubview(coachingOverlay)
+        coachingOverlay.center = CGPoint(x: arView.bounds.size.width  / 2,
+                                         y: arView.bounds.size.height / 2)
+        
+        let arConfiguration = ARWorldTrackingConfiguration()
+        arConfiguration.planeDetection = .horizontal
+        arView.session.run(arConfiguration)
+        
         initGestureRecognizers()
     }
     
@@ -61,5 +79,13 @@ class ViewController: UIViewController {
     
     func clearAllFurniture() {
         arView.scene.anchors.removeAll()
+    }
+}
+
+extension ARView: ARCoachingOverlayViewDelegate {
+    // callback for the delegate object
+    public func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
+        coachingOverlayView.activatesAutomatically = false
+        print("after coaching")
     }
 }
